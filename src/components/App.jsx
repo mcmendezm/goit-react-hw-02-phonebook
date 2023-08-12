@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-//
 
 const ContactForm = ({ name, number, onChange, onSubmit }) => (
   <form onSubmit={onSubmit}>
@@ -11,6 +10,7 @@ const ContactForm = ({ name, number, onChange, onSubmit }) => (
         name="name"
         value={name}
         onChange={onChange}
+        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces."
         required
       />
@@ -24,6 +24,7 @@ const ContactForm = ({ name, number, onChange, onSubmit }) => (
         name="number"
         value={number}
         onChange={onChange}
+        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required
       />
