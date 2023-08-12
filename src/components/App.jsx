@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+//
 
 const ContactForm = ({ name, number, onChange, onSubmit }) => (
   <form onSubmit={onSubmit}>
