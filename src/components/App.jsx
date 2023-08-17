@@ -8,15 +8,20 @@ class App extends Component {
     filter: '',
   };
 
-  handleChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
+  componentDidMount() {
+    const storedContacts = localStorage.getItem('contacts');
+    if (storedContacts) {
+      this.setState({ contacts: JSON.parse(storedContacts) });
+    }
+  }
 
-  handleAddContact = e => {
-    e.preventDefault();
-    const { name, number } = this.state;
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
+  handleAddContact = (name, number) => {
     if (this.isContactNameUnique(name)) {
       const newContact = { id: this.generateUniqueId(), name, number };
       this.setState(prevState => ({
@@ -26,6 +31,7 @@ class App extends Component {
       alert(`Contact "${name}" already exists!`);
     }
   };
+
   generateUniqueId = () => {
     return Date.now().toString();
   };
@@ -53,10 +59,7 @@ class App extends Component {
     return (
       <div>
         <h1 style={{ color: '#2874A6' }}>Phonebook</h1>
-        <ContactForm
-          onChange={this.handleChange}
-          onSubmit={this.handleAddContact}
-        />
+        <ContactForm onSubmit={this.handleAddContact} />
 
         <h2 style={{ color: '#2874A6' }}>Contacts</h2>
         <Filter filter={filter} onChange={this.handleFilterChange} />
